@@ -25,4 +25,26 @@ The location ($4) must be exactly "us-east".
 
 > awk 'NR>1 && $2=="active" && $4=="us-east" {print $0}' server.txt
 
+---------------------
 
+order_id item quantity price_each status
+101 burger 2 5.50 completed
+102 fries 1 3.00 pending
+103 shake 3 4.00 completed
+104 burger 1 5.50 cancelled
+105 pizza 2 12.00 completed
+
+# awk command that skips the header row and prints the item name ($2) and quantity ($3), but only for orders where the status ($5) is exactly "pending".
+> awk 'NR>1 && /pending/ {print $2, $3}' orders.txt
+
+# awk cmd that skip header, prints the prodID and prodName and its total prince(price * qty), if its status is completed
+>  awk 'NR>1 && $5=="completed" {print $1, $2, $3*$4}' orders.txt
+
+# extract the order ID, item name, and status from a dataset while omitting the header line and excluding any transactions that have been canceled.
+>  awk 'NR>1 && $5=="completed" {print $1, $2, $3*$4}' orders.txt
+
+# extract the order ID and item name from a dataset, skipping the header line and showing only the rows where the item purchased is either a burger or a pizza.
+
+> awk 'NR>1 && ($2 == "burger" || $2 == "pizza") {print $1, $2}' orders.txt
+or
+> awk 'NR> 1 && /pizza|burger/ {print $0}' orders.txt
