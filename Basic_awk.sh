@@ -63,3 +63,14 @@ id name tier age monthly_fee checkins
 104 Ryan Bronze 42 20 1
 105 Maria Gold 31 50 8
 
+# print the name and membership tier of members under the age of 30 who have more than 10 check-ins, while skipping the header row.
+> awk 'NR>1 && ($4<30 && $6>10) {print "Name: " $2, "Tier Level: " $3}' gym.txt
+
+# find Gold or Silver members with fewer than 5 check-ins, skip the header, and print a contact message showing their name, tier, and check-in count.
+
+> awk 'NR>1 && ($3=="Gold" || $3=="Silver") && $6<5 {print "Contact " $2 " at tier " $3 " - checkins: " $6}' gym.txt
+
+# calculate and print each member's cost per visit (monthly fee divided by check-ins) for those with at least one check-in, skipping the header.
+> awk 'NR>1 && $6>0 {print $2" pays " ($5/$6) " per visit"}' gym.txt
+or, with better decimal handling and formatting
+> awk 'NR>1 {printf "Name: %s | Fee per visit: %.2f\n", $2,$5/$6}' gym.txt
