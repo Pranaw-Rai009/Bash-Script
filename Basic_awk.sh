@@ -48,3 +48,18 @@ order_id item quantity price_each status
 > awk 'NR>1 && ($2 == "burger" || $2 == "pizza") {print $1, $2}' orders.txt
 or
 > awk 'NR> 1 && /pizza|burger/ {print $0}' orders.txt
+
+#format and print high-value completed orders by calculating the total value (quantity multiplied by price) for each item, filtering out any records under 10 dollars along with the header line.
+> awk 'NR>1 && $5=="completed" && ($3*$4 >= 10) {print $0}' orders.txt
+or
+> awk 'NR>1 && $5=="completed" && ($3*$4 >= 10) {print "Order", $1, "(" $2 ") is ready. Total: $" $3*$4}' orders.txt
+
+------------------------
+
+id name tier age monthly_fee checkins
+101 Alex Gold 28 50 12
+102 Sam Silver 34 35 4
+103 Jess Gold 19 50 22
+104 Ryan Bronze 42 20 1
+105 Maria Gold 31 50 8
+
